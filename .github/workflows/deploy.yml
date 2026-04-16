@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
@@ -23,11 +23,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: task-board/package-lock.json
       - run: npm ci
+        working-directory: task-board
       - run: npm run build
+        working-directory: task-board
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: task-board/dist
 
   deploy:
     needs: build
