@@ -3,12 +3,20 @@ import './App.css'
 
 const STORAGE_KEY = 'task-board-tasks'
 
+const SAMPLE_TASKS = [
+  { id: 1, text: '企画書を作成する', done: true },
+  { id: 2, text: 'ミーティングの準備', done: false },
+  { id: 3, text: '資料を送付する', done: false },
+]
+
 function loadTasks() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : []
+    if (saved) return JSON.parse(saved)
+    saveTasks(SAMPLE_TASKS)
+    return SAMPLE_TASKS
   } catch {
-    return []
+    return SAMPLE_TASKS
   }
 }
 
